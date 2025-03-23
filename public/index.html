@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live User Data</title>
+    <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        table { width: 50%; margin: auto; border-collapse: collapse; }
+        th, td { border: 1px solid black; padding: 10px; }
+        th { background-color: lightgray; }
+    </style>
+</head>
+<body>
+    <h2>Live User Data</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody id="userTable"></tbody>
+    </table>
+
+    <script>
+        // const socket = io("http://localhost:3005"); 
+
+        // socket.on('userData', (users) => {
+        //     console.log("************users,",users)
+        //     const tableBody = document.getElementById('userTable');
+        //     tableBody.innerHTML = users.map(user => `
+        //         <tr>
+        //             <td>${user.id}</td>
+        //             <td>${user.name}</td>
+        //             <td>${user.email}</td>
+        //             <td>${user.status}</td>
+        //         </tr>
+        //     `).join('');
+        // });
+        const socket = io("http://localhost:3005");
+        console.log("6666666666666666")
+
+socket.on("userData", (users) => {
+    console.log("Received users data:", users);
+
+    const tableBody = document.getElementById("userTable");
+    tableBody.innerHTML = ""; // Clear previous data
+
+    if (!users || users.length === 0) {
+        tableBody.innerHTML = "<tr><td colspan='4'>No data found</td></tr>";
+        return;
+    }
+
+    users.forEach((user) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td>${user.id}</td>
+            <td>${user.name}</td>
+            <td>${user.email}</td>
+            <td>${user.status}</td>
+        `;
+        tableBody.appendChild(row);
+    });
+});
+
+    </script>
+</body>
+</html>
