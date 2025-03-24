@@ -20,7 +20,7 @@
                 <th>ID</th>
                 <th>Name</th>
                 <th>Email</th>
-                <th>Status</th>
+                <th>Age</th>
             </tr>
         </thead>
         <tbody id="userTable"></tbody>
@@ -61,7 +61,7 @@ socket.on("userData", (users) => {
             <td>${user.id}</td>
             <td>${user.name}</td>
             <td>${user.email}</td>
-            <td>${user.status}</td>
+            <td>${user.age}</td>
         `;
         tableBody.appendChild(row);
     });
